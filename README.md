@@ -1,51 +1,85 @@
-# GoLedger Challenge
+# 🚀 GoLedger Challenge Web
 
-In this challenge you will create a web interface to a blockchain application. In this application you must implement a imdb-like interface, to catalogue TV Shows, with series, seasons, episodes and watchlist registration.
+> Front-end do desafio GoLedger - Uma aplicação moderna e escalável
 
-# Requirements
+![Next.js](https://img.shields.io/badge/Next.js-16.2.1-black?style=flat-square&logo=next.js)
+![React](https://img.shields.io/badge/React-19.2.4-61DAFB?style=flat-square&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-6.0.2-3178C6?style=flat-square&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.2.2-06B6D4?style=flat-square&logo=tailwind-css)
+![ESLint](https://img.shields.io/badge/ESLint-9.39.4-4B32C3?style=flat-square&logo=eslint)
+![Prettier](https://img.shields.io/badge/Prettier-3.8.1-F7B93E?style=flat-square&logo=prettier)
 
-- Your application should be able to add/remove/edit and show all tv shows, seasons, episodes and watchlists;
-- Use **React** or **Next.js** (all UI libraries are allowed);
+## 📋 Descrição
 
-## Instructions
+Este projeto é a interface web do desafio GoLedger, desenvolvido com as tecnologias mais modernas do ecossistema JavaScript/TypeScript. O objetivo é criar uma aplicação front-end robusta, performática e de fácil manutenção.
 
-- Fork the repository [https://github.com/goledgerdev/goledger-challenge-web](https://github.com/goledgerdev/goledger-challenge-web)
-    - Fork it, do **NOT** clone it, since you will need to send us your forked repository
-    - If you **cannot** fork it, create a private repository and give access to `andremacedopv` and `lucas-campelo`.
-- Create an web application using React. You will implement the basic operations provided by the API, which are `Create`, `Update`, `Delete` and `Search`.
-- Improve your application with a beautiful UI.
+## 🛠️ Tecnologias & Stack
 
-## Server
+| Tecnologia | Versão | Descrição |
+|------------|--------|-----------|
+| **Next.js** | 16.2.1 | Framework React com SSR/SSG |
+| **React** | 19.2.4 | Biblioteca para construção de interfaces |
+| **TypeScript** | 6.0.2 | Superset tipado de JavaScript |
+| **Tailwind CSS** | 4.2.2 | Framework CSS utilitário |
+| **ESLint** | 9.39.4 | Linter para código JavaScript/TypeScript |
+| **Prettier** | 3.8.1 | Formatador de código |
+| **Axios** | 1.14.0 | Cliente HTTP para requisições |
 
-The data are obtained using a rest server at this address: `http://ec2-50-19-36-138.compute-1.amazonaws.com`
+## 📁 Estrutura do Projeto
 
-Also, a Swagger with the endpoints specifications for the operations is provided at this address: `http://ec2-50-19-36-138.compute-1.amazonaws.com/api-docs/index.html`.
-
-Note: The API is protected with Basic Auth. The credentials were sent to you by email.
-
-Tip: execute each operation in the Swagger for information on payload format and endpoint addresses. See examples below.
-
-### Get Schema
-Execute a `getSchema` operation to get information on which asset types are available. Don't forget to authenticate with the credentials provided.
-
-```bash
-curl -X POST "http://ec2-50-19-36-138.compute-1.amazonaws.com/api/query/getSchema" -H "accept: */*" -H "Content-Type: application/json"
+```
+src/
+├── app/              # Pages e rotas do Next.js App Router
+├── components/       # Componentes React reutilizáveis
+├── lib/              # Utilitários e configurações
+├── services/         # Chamadas de API
+└── types/            # Definições de tipos TypeScript
 ```
 
-Execute a getSchema with a payload to get more details on a particula asset.
+## 🚀 Como Executar
 
 ```bash
-curl -X POST "http://ec2-50-19-36-138.compute-1.amazonaws.com/api/query/getSchema" -H "accept: */*" -H "Content-Type: application/json" -d "{\"assetType\":\"tvShows\"}"
+# Instalar dependências
+pnpm install
+
+# Iniciar servidor de desenvolvimento
+pnpm dev
+
+# Build de produção
+pnpm build
+
+# Verificar lint
+pnpm lint
+
+# Formatar código
+pnpm format
 ```
-Tip: the same can be done with transactions, using the `getTx` endpoint.
 
-### Search
-Perform a search query on a particular asset type.
-```bash
-curl -X POST "http://ec2-50-19-36-138.compute-1.amazonaws.com/api/query/search" -H "accept: */*" -H "Content-Type: application/json" -d "{\"query\":{\"selector\":{\"@assetType\":\"seasons\"}}}"
+## 📦 Scripts Disponíveis
+
+| Script | Descrição |
+|--------|-----------|
+| `pnpm dev` | Inicia o servidor de desenvolvimento |
+| `pnpm build` | Gera build de produção |
+| `pnpm start` | Inicia o servidor de produção |
+| `pnpm lint` | Executa verificação de código |
+| `pnpm format` | Formata todo o código com Prettier |
+| `pnpm format:check` | Verifica se o código está formatado |
+
+## 🔧 Configurações de Ambiente
+
+Crie um arquivo `.env.local` na raiz do projeto:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3000/api
+NEXT_PUBLIC_API_USER=admin
+NEXT_PUBLIC_API_PASS=admin123
 ```
-Tip: to read a specific asset, you can use the `readAsset` endpoint.
 
-## Complete the challenge
+## 📄 Licença
 
-To complete the challenge, you must send us the link to your forked repository with the code of your application. Please, provide instructions to execute the code.
+Este projeto é privado e faz parte do desafio GoLedger.
+
+---
+
+Desenvolvido com 💜 e muito ☕
