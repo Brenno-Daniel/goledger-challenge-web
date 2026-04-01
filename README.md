@@ -8,6 +8,8 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.2.2-06B6D4?style=flat-square&logo=tailwind-css)
 ![ESLint](https://img.shields.io/badge/ESLint-9.39.4-4B32C3?style=flat-square&logo=eslint)
 ![Prettier](https://img.shields.io/badge/Prettier-3.8.1-F7B93E?style=flat-square&logo=prettier)
+![Vitest](https://img.shields.io/badge/Vitest-4.1.2-6E9F18?style=flat-square&logo=vitest)
+![Testing Library](https://img.shields.io/badge/Testing%20Library-16.3.2-E33332?style=flat-square&logo=testing-library)
 
 ## 📋 Descrição
 
@@ -23,6 +25,8 @@ Este projeto é a interface web do desafio GoLedger, desenvolvido com as tecnolo
 | **Tailwind CSS** | 4.2.2 | Framework CSS utilitário |
 | **ESLint** | 9.39.4 | Linter para código JavaScript/TypeScript |
 | **Prettier** | 3.8.1 | Formatador de código |
+| **Vitest** | 4.1.2 | Framework de testes |
+| **MSW** | 2.12.14 | Mock Service Worker para APIs |
 | **Axios** | 1.14.0 | Cliente HTTP para requisições |
 
 ## 📁 Estrutura do Projeto
@@ -65,6 +69,8 @@ pnpm format
 | `pnpm lint` | Executa verificação de código |
 | `pnpm format` | Formata todo o código com Prettier |
 | `pnpm format:check` | Verifica se o código está formatado |
+| `pnpm test` | Executa todos os testes |
+| `pnpm test:watch` | Executa testes em modo watch |
 
 ## 🔧 Configurações de Ambiente
 
