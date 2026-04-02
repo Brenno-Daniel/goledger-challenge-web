@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'icon';
+  variant?: 'primary' | 'icon' | 'secondary';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -16,6 +16,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       icon: `p-2 bg-brand-bg border border-white/20 rounded
              hover:bg-brand-primary hover:border-brand-primary
              group`,
+      secondary: `px-6 py-2 bg-transparent text-white border border-white/20
+                  hover:bg-white/10`,
     };
 
     return (
