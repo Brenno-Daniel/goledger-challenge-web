@@ -22,7 +22,7 @@ export function ActionButtons({
       >
         <Pencil
           size={16}
-          className="text-white group-hover:text-brand-bg transition-colors"
+          className="text-white transition-colors"
         />
       </button>
       <button
