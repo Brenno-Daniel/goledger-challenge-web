@@ -1,15 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { TVShowCard, SearchBar } from '@/components';
+import { useDebounce } from '@/hooks';
 import { mockTVShows } from '@/constants/mockData';
 
 export default function Home() {
   const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search, 500);
 
-  const filteredShows = mockTVShows.filter(show =>
-    show.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredShows = useMemo(() => {
+    return mockTVShows.filter(show =>
+      show.title.toLowerCase().includes(debouncedSearch.toLowerCase())
+    );
+  }, [debouncedSearch]);
 
   return (
     <main className="min-h-screen p-4 md:p-6 lg:p-8">
