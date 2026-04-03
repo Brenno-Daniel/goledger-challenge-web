@@ -2,7 +2,7 @@ import * as assetService from './assetService';
 import type { TVShow, Season, Episode } from '@/types';
 
 export const ASSET_TYPES = {
-  TVSHOW: 'tvshows',
+  TVSHOW: 'tvShows',
   SEASON: 'seasons',
   EPISODE: 'episodes',
   WATCHLIST: 'watchlists',

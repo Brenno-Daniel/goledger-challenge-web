@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Plus } from 'lucide-react';
 import {
   TVShowCard,
@@ -8,31 +8,54 @@ import {
   Button,
   AssetModal,
   DeleteConfirmationModal,
+  TVShowGridSkeleton,
 } from '@/components';
 import { TVShowForm } from '@/components/forms';
 import { useDebounce } from '@/hooks';
 import { useToast } from '@/components/ui';
-import { mockTVShows as initialShows } from '@/constants/mockData';
+import {
+  getTVShows,
+  createTVShow,
+  updateTVShow,
+  deleteTVShow,
+} from '@/services/tvShowService';
 import type { TVShow } from '@/types';
 import type { TVShowFormData } from '@/schemas';
 
 export default function Home() {
   const { addToast } = useToast();
   const [search, setSearch] = useState('');
-  const [shows, setShows] = useState<TVShow[]>(initialShows);
+  const [shows, setShows] = useState<TVShow[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedShow, setSelectedShow] = useState<TVShow | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   const debouncedSearch = useDebounce(search, 500);
 
   const filteredShows = useMemo(() => {
+    if (!debouncedSearch) return shows;
     return shows.filter(show =>
       show.title.toLowerCase().includes(debouncedSearch.toLowerCase())
     );
   }, [shows, debouncedSearch]);
+
+  useEffect(() => {
+    const fetchShows = async () => {
+      try {
+        const data = await getTVShows();
+        setShows(data);
+      } catch {
+        addToast('Erro ao carregar séries', 'error');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchShows();
+  }, [addToast]);
 
   const handleEdit = (show: TVShow) => {
     setSelectedShow(show);
@@ -45,45 +68,51 @@ export default function Home() {
   };
 
   const handleSave = async (data: TVShowFormData) => {
-    setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 500));
+    setIsSaving(true);
 
-    if (selectedShow) {
-      setShows(prev =>
-        prev.map(show =>
-          show['@key'] === selectedShow['@key'] ? { ...show, ...data } : show
-        )
-      );
-      addToast(`${data.title} atualizado com sucesso!`, 'success');
-    } else {
-      const newShow: TVShow = {
-        '@assetType': 'tvshow',
-        '@key': `tvshow-${Date.now()}`,
-        ...data,
-      };
-      setShows(prev => [...prev, newShow]);
-      addToast(`${data.title} criado com sucesso!`, 'success');
+    try {
+      if (selectedShow) {
+        const updated = await updateTVShow(selectedShow['@key'], data);
+        setShows(prev =>
+          prev.map(show =>
+            show['@key'] === selectedShow['@key'] ? updated : show
+          )
+        );
+        addToast(`${data.title} atualizado com sucesso!`, 'success');
+      } else {
+        const created = await createTVShow(data);
+        setShows(prev => [...prev, created]);
+        addToast(`${data.title} criado com sucesso!`, 'success');
+      }
+
+      setIsEditModalOpen(false);
+      setSelectedShow(null);
+    } catch {
+      addToast('Erro ao salvar série', 'error');
+    } finally {
+      setIsSaving(false);
     }
-
-    setIsLoading(false);
-    setIsEditModalOpen(false);
-    setSelectedShow(null);
   };
 
   const handleConfirmDelete = async () => {
     if (!selectedShow) return;
 
-    setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 500));
+    setIsSaving(true);
 
-    setShows(prev =>
-      prev.filter(show => show['@key'] !== selectedShow['@key'])
-    );
-    addToast(`${selectedShow.title} removido com sucesso!`, 'success');
+    try {
+      await deleteTVShow(selectedShow['@key']);
+      setShows(prev =>
+        prev.filter(show => show['@key'] !== selectedShow['@key'])
+      );
+      addToast(`${selectedShow.title} removido com sucesso!`, 'success');
 
-    setIsLoading(false);
-    setIsDeleteModalOpen(false);
-    setSelectedShow(null);
+      setIsDeleteModalOpen(false);
+      setSelectedShow(null);
+    } catch {
+      addToast('Erro ao remover série', 'error');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -121,7 +150,9 @@ export default function Home() {
           ))}
         </div>
 
-        {filteredShows.length === 0 && (
+        {isLoading && <TVShowGridSkeleton count={8} />}
+
+        {!isLoading && filteredShows.length === 0 && (
           <div className="text-center text-white/60 py-12">
             <p>Nenhuma série encontrada.</p>
           </div>
@@ -136,7 +167,7 @@ export default function Home() {
         }}
         title={selectedShow ? 'Editar Série' : 'Nova Série'}
         submitLabel="Salvar"
-        isLoading={isLoading}
+        isLoading={isSaving}
         onSubmit={() => {}}
       >
         <TVShowForm
@@ -161,7 +192,7 @@ export default function Home() {
         }}
         onConfirm={handleConfirmDelete}
         itemName={selectedShow?.title}
-        isLoading={isLoading}
+        isLoading={isSaving}
       />
     </main>
   );
