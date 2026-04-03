@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { ClientLayout } from '@/components/ClientLayout';
+import { Header } from '@/components/layout';
 
 export const metadata: Metadata = {
   title: 'GoLedger Challenge',
@@ -15,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
-        <ClientLayout>{children}</ClientLayout>
+        <ClientLayout>
+          <Header />
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );
