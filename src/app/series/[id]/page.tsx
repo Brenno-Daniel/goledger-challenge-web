@@ -18,21 +18,21 @@ const mockSeasons: Record<string, Season[]> = {
       number: 1,
       description:
         'A primeira temporada acompanha Walter White e Jesse Pinkman.',
-      tvShow: { '@key': 'tvshow-001' },
+      tvShow: { '@assetType': 'tvshow', '@key': 'tvshow-001' },
     },
     {
       '@assetType': 'season',
       '@key': 'season-001-2',
       number: 2,
       description: 'Walter enfrenta as consequências de suas decisões.',
-      tvShow: { '@key': 'tvshow-001' },
+      tvShow: { '@assetType': 'tvshow', '@key': 'tvshow-001' },
     },
     {
       '@assetType': 'season',
       '@key': 'season-001-3',
       number: 3,
       description: 'A parceria com Gus Fring se torna mais complicada.',
-      tvShow: { '@key': 'tvshow-001' },
+      tvShow: { '@assetType': 'tvshow', '@key': 'tvshow-001' },
     },
   ],
   'tvshow-002': [
@@ -42,14 +42,14 @@ const mockSeasons: Record<string, Season[]> = {
       number: 1,
       description:
         'O desaparecimento de Will Byers e os eventos sobrenaturais em Hawkins.',
-      tvShow: { '@key': 'tvshow-002' },
+      tvShow: { '@assetType': 'tvshow', '@key': 'tvshow-002' },
     },
     {
       '@assetType': 'season',
       '@key': 'season-002-2',
       number: 2,
       description: 'Os moradores enfrentam criaturas do Mundo Invertido.',
-      tvShow: { '@key': 'tvshow-002' },
+      tvShow: { '@assetType': 'tvshow', '@key': 'tvshow-002' },
     },
   ],
 };
@@ -96,7 +96,11 @@ export default async function SeriesDetailPage({ params }: PageProps) {
           {seasons.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {seasons.map(season => (
-                <SeasonCard key={season['@key']} season={season} />
+                <SeasonCard
+                  key={season['@key']}
+                  season={season}
+                  tvShowId={id}
+                />
               ))}
             </div>
           ) : (

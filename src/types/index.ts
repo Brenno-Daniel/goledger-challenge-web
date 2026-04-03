@@ -12,15 +12,16 @@ export interface TVShow extends BaseAsset {
 export interface Season extends BaseAsset {
   number: number;
   description: string;
-  tvShow: { '@key': string };
+  tvShow: { '@assetType': string; '@key': string };
 }
 
 export interface Episode extends BaseAsset {
-  number: number;
+  episodeNumber: number;
   title: string;
   description: string;
-  duration: number;
-  season: { '@key': string };
+  rating: number;
+  releaseDate: string;
+  season: { '@assetType': string; '@key': string };
 }
 
 export interface Watchlist extends BaseAsset {
