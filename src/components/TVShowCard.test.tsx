@@ -9,7 +9,7 @@ describe('TVShowCard', () => {
     '@key': 'tvshow-001',
     title: 'Breaking Bad',
     description: 'A história do professor de química Walter White.',
-    rating: '16+',
+    recommendedAge: 16,
   };
 
   it('Should render show title correctly when data is loaded', () => {

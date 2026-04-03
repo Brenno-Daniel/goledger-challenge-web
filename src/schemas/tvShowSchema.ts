@@ -9,7 +9,10 @@ export const tvShowSchema = z.object({
     .string()
     .min(1, 'Descrição é obrigatória')
     .max(1000, 'Descrição muito longa'),
-  rating: z.string().min(1, 'Classificação é obrigatória'),
+  recommendedAge: z
+    .number()
+    .min(0, 'Idade mínima é 0')
+    .max(18, 'Idade máxima é 18'),
 });
 
 export type TVShowFormData = z.infer<typeof tvShowSchema>;

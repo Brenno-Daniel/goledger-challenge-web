@@ -23,7 +23,7 @@ describe('TVShowForm', () => {
     expect(
       screen.getByPlaceholderText('Descrição da série')
     ).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Ex: 16+, Livre')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Ex: 16')).toBeInTheDocument();
   });
 
   it('Should display labels correctly', () => {
@@ -31,7 +31,7 @@ describe('TVShowForm', () => {
 
     expect(screen.getByText('Título')).toBeInTheDocument();
     expect(screen.getByText('Descrição')).toBeInTheDocument();
-    expect(screen.getByText('Classificação')).toBeInTheDocument();
+    expect(screen.getByText('Classificação Etária')).toBeInTheDocument();
   });
 
   it('Should prefill form when defaultValues are provided', () => {
@@ -41,7 +41,7 @@ describe('TVShowForm', () => {
         defaultValues={{
           title: 'Breaking Bad',
           description: 'Uma história sobre química.',
-          rating: '16+',
+          recommendedAge: 16,
         }}
       />
     );
@@ -50,7 +50,7 @@ describe('TVShowForm', () => {
     expect(
       screen.getByDisplayValue('Uma história sobre química.')
     ).toBeInTheDocument();
-    expect(screen.getByDisplayValue('16+')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('16')).toBeInTheDocument();
   });
 });
 
@@ -95,15 +95,14 @@ describe('EpisodeForm', () => {
     expect(
       screen.getByPlaceholderText('Descrição do episódio')
     ).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('9.5')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('45:00')).toBeInTheDocument();
   });
 
   it('Should display labels correctly', () => {
     renderWithProvider(<EpisodeForm onSubmit={mockOnSubmit} />);
 
     expect(screen.getByText('Número do Episódio')).toBeInTheDocument();
-    expect(screen.getByText('Título')).toBeInTheDocument();
-    expect(screen.getByText('Nota (0-10)')).toBeInTheDocument();
-    expect(screen.getByText('Data de Lançamento')).toBeInTheDocument();
+    expect(screen.getByText('Nome do Episódio')).toBeInTheDocument();
+    expect(screen.getByText('Duração')).toBeInTheDocument();
   });
 });

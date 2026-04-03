@@ -6,6 +6,9 @@ const api = axios.create({
     username: process.env.NEXT_PUBLIC_API_USER || '',
     password: process.env.NEXT_PUBLIC_API_PASS || '',
   },
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 export default api;

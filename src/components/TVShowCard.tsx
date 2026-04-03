@@ -21,7 +21,7 @@ export function TVShowCard({ show, onEdit, onDelete }: TVShowCardProps) {
               {show.description}
             </p>
           </div>
-          <Badge rating={show.rating} />
+          <Badge rating={show.recommendedAge} />
         </div>
       </Link>
 

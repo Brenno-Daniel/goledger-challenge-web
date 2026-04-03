@@ -26,28 +26,18 @@ export function EpisodeForm({ onSubmit, defaultValues }: EpisodeFormProps) {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-4"
     >
-      <div className="grid grid-cols-2 gap-4">
-        <Input
-          label="Número do Episódio"
-          type="number"
-          placeholder="1"
-          error={errors.episodeNumber?.message}
-          {...register('episodeNumber', { valueAsNumber: true })}
-        />
-        <Input
-          label="Nota (0-10)"
-          type="number"
-          step="0.1"
-          placeholder="9.5"
-          error={errors.rating?.message}
-          {...register('rating', { valueAsNumber: true })}
-        />
-      </div>
       <Input
-        label="Título"
+        label="Número do Episódio"
+        type="number"
+        placeholder="1"
+        error={errors.number?.message}
+        {...register('number', { valueAsNumber: true })}
+      />
+      <Input
+        label="Nome do Episódio"
         placeholder="Título do episódio"
-        error={errors.title?.message}
-        {...register('title')}
+        error={errors.name?.message}
+        {...register('name')}
       />
       <div className="flex flex-col gap-1">
         <label className="text-sm text-brand-primary">Descrição</label>
@@ -66,10 +56,10 @@ export function EpisodeForm({ onSubmit, defaultValues }: EpisodeFormProps) {
         )}
       </div>
       <Input
-        label="Data de Lançamento"
-        type="date"
-        error={errors.releaseDate?.message}
-        {...register('releaseDate')}
+        label="Duração"
+        placeholder="45:00"
+        error={errors.duration?.message}
+        {...register('duration')}
       />
     </form>
   );

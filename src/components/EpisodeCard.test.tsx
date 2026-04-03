@@ -5,16 +5,14 @@ import type { Episode } from '@/types';
 
 describe('EpisodeCard', () => {
   const mockEpisode: Episode = {
-    '@assetType': 'episodes',
-    '@key': 'episodes:055f8f49-7e3a-5908-b0ec-bf5a3f8df419',
-    episodeNumber: 2,
-    title: 'Grilled',
+    '@assetType': 'episode',
+    '@key': 'episode:055f8f49-7e3a-5908-b0ec-bf5a3f8df419',
+    number: 2,
+    name: 'Grilled',
     description: 'Walt e Jesse ficam presos em um esconderijo no deserto.',
-    rating: 9.2,
-    releaseDate: '2009-03-15T00:00:00Z',
+    duration: '10:00',
     season: {
-      '@assetType': 'seasons',
-      '@key': 'seasons:e54f2e15-f8c8-5745-a293-97938f20f628',
+      '@key': 'season:e54f2e15-f8c8-5745-a293-97938f20f628',
     },
   };
 
@@ -25,11 +23,11 @@ describe('EpisodeCard', () => {
     expect(episodeNumber).toBeInTheDocument();
   });
 
-  it('Should render episode title correctly when data is loaded', () => {
+  it('Should render episode name correctly when data is loaded', () => {
     render(<EpisodeCard episode={mockEpisode} />);
 
-    const title = screen.getByText('Grilled');
-    expect(title).toBeInTheDocument();
+    const name = screen.getByText('Grilled');
+    expect(name).toBeInTheDocument();
   });
 
   it('Should render episode description correctly when data is loaded', () => {
@@ -41,18 +39,11 @@ describe('EpisodeCard', () => {
     expect(description).toBeInTheDocument();
   });
 
-  it('Should render episode rating correctly when data is loaded', () => {
+  it('Should render episode duration correctly when data is loaded', () => {
     render(<EpisodeCard episode={mockEpisode} />);
 
-    const rating = screen.getByText('★ 9.2');
-    expect(rating).toBeInTheDocument();
-  });
-
-  it('Should render release date correctly when data is loaded', () => {
-    render(<EpisodeCard episode={mockEpisode} />);
-
-    const date = screen.getByText(/14\/03\/2009|15\/03\/2009/);
-    expect(date).toBeInTheDocument();
+    const duration = screen.getByText('10:00');
+    expect(duration).toBeInTheDocument();
   });
 
   it('Should render action buttons when component is rendered', () => {

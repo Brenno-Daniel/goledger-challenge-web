@@ -49,10 +49,11 @@ export function TVShowForm({ onSubmit, defaultValues }: TVShowFormProps) {
         )}
       </div>
       <Input
-        label="Classificação"
-        placeholder="Ex: 16+, Livre"
-        error={errors.rating?.message}
-        {...register('rating')}
+        label="Classificação Etária"
+        type="number"
+        placeholder="Ex: 16"
+        error={errors.recommendedAge?.message}
+        {...register('recommendedAge', { valueAsNumber: true })}
       />
     </form>
   );

@@ -146,7 +146,7 @@ export default function Home() {
               ? {
                   title: selectedShow.title,
                   description: selectedShow.description,
-                  rating: selectedShow.rating,
+                  recommendedAge: selectedShow.recommendedAge,
                 }
               : undefined
           }

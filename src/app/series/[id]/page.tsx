@@ -11,45 +11,45 @@ interface PageProps {
 }
 
 const mockSeasons: Record<string, Season[]> = {
-  'tvshow-001': [
+  'tvshows:001': [
     {
       '@assetType': 'season',
       '@key': 'season-001-1',
       number: 1,
       description:
         'A primeira temporada acompanha Walter White e Jesse Pinkman.',
-      tvShow: { '@assetType': 'tvshow', '@key': 'tvshow-001' },
+      tvShow: { '@key': 'tvshows:001' },
     },
     {
       '@assetType': 'season',
       '@key': 'season-001-2',
       number: 2,
       description: 'Walter enfrenta as consequências de suas decisões.',
-      tvShow: { '@assetType': 'tvshow', '@key': 'tvshow-001' },
+      tvShow: { '@key': 'tvshows:001' },
     },
     {
       '@assetType': 'season',
       '@key': 'season-001-3',
       number: 3,
       description: 'A parceria com Gus Fring se torna mais complicada.',
-      tvShow: { '@assetType': 'tvshow', '@key': 'tvshow-001' },
+      tvShow: { '@key': 'tvshows:001' },
     },
   ],
-  'tvshow-002': [
+  'tvshows:002': [
     {
       '@assetType': 'season',
       '@key': 'season-002-1',
       number: 1,
       description:
         'O desaparecimento de Will Byers e os eventos sobrenaturais em Hawkins.',
-      tvShow: { '@assetType': 'tvshow', '@key': 'tvshow-002' },
+      tvShow: { '@key': 'tvshows:002' },
     },
     {
       '@assetType': 'season',
       '@key': 'season-002-2',
       number: 2,
       description: 'Os moradores enfrentam criaturas do Mundo Invertido.',
-      tvShow: { '@assetType': 'tvshow', '@key': 'tvshow-002' },
+      tvShow: { '@key': 'tvshows:002' },
     },
   ],
 };
@@ -82,7 +82,7 @@ export default async function SeriesDetailPage({ params }: PageProps) {
                 <h1 className="text-2xl md:text-3xl font-bold text-white">
                   {show.title}
                 </h1>
-                <Badge rating={show.rating} />
+                <Badge rating={show.recommendedAge} />
               </div>
               <p className="text-white/70 leading-relaxed">
                 {show.description}

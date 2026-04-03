@@ -6,26 +6,33 @@ export interface BaseAsset {
 export interface TVShow extends BaseAsset {
   title: string;
   description: string;
-  rating: string;
+  recommendedAge: number;
 }
 
 export interface Season extends BaseAsset {
   number: number;
   description: string;
-  tvShow: { '@assetType': string; '@key': string };
+  tvShow: { '@key': string };
 }
 
 export interface Episode extends BaseAsset {
-  episodeNumber: number;
-  title: string;
+  number: number;
+  name: string;
   description: string;
-  rating: number;
-  releaseDate: string;
-  season: { '@assetType': string; '@key': string };
+  duration: string;
+  season: { '@key': string };
 }
 
 export interface Watchlist extends BaseAsset {
-  name: string;
-  description: string;
-  user: { '@key': string };
+  title: string;
+  tvShows: Array<{ '@key': string }>;
+}
+
+export interface AssetResponse<T> {
+  result: T[];
+  metadata: unknown;
+}
+
+export interface InvokeResponse<T> {
+  result: T;
 }
