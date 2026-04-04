@@ -83,10 +83,11 @@ describe('Season Schema', () => {
 describe('Episode Schema', () => {
   it('Should validate a valid Episode', () => {
     const validData = {
-      number: 1,
-      name: 'Pilot',
+      episodeNumber: 1,
+      title: 'Pilot',
       description: 'O primeiro episódio...',
-      duration: '58:00',
+      rating: 9.5,
+      releaseDate: '2011-04-17',
     };
 
     const result = episodeSchema.safeParse(validData);
@@ -95,34 +96,37 @@ describe('Episode Schema', () => {
 
   it('Should fail validation when episode number is zero', () => {
     const invalidData = {
-      number: 0,
-      name: 'Pilot',
+      episodeNumber: 0,
+      title: 'Pilot',
       description: 'Descrição...',
-      duration: '58:00',
+      rating: 9.5,
+      releaseDate: '2011-04-17',
     };
 
     const result = episodeSchema.safeParse(invalidData);
     expect(result.success).toBe(false);
   });
 
-  it('Should fail validation when name is empty', () => {
+  it('Should fail validation when title is empty', () => {
     const invalidData = {
-      number: 1,
-      name: '',
+      episodeNumber: 1,
+      title: '',
       description: 'Descrição...',
-      duration: '58:00',
+      rating: 9.5,
+      releaseDate: '2011-04-17',
     };
 
     const result = episodeSchema.safeParse(invalidData);
     expect(result.success).toBe(false);
   });
 
-  it('Should fail validation when duration format is invalid', () => {
+  it('Should fail validation when rating is above 10', () => {
     const invalidData = {
-      number: 1,
-      name: 'Pilot',
+      episodeNumber: 1,
+      title: 'Pilot',
       description: 'Descrição...',
-      duration: 'invalid',
+      rating: 11,
+      releaseDate: '2011-04-17',
     };
 
     const result = episodeSchema.safeParse(invalidData);

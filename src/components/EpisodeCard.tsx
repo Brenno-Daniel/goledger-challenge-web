@@ -1,10 +1,15 @@
-import { Pencil, Trash2 } from 'lucide-react';
+import { Pencil, Trash2, Star } from 'lucide-react';
 import type { Episode } from '@/types';
 
 interface EpisodeCardProps {
   episode: Episode;
   onEdit?: () => void;
   onDelete?: () => void;
+}
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('pt-BR');
 }
 
 export function EpisodeCard({ episode, onEdit, onDelete }: EpisodeCardProps) {
@@ -14,12 +19,15 @@ export function EpisodeCard({ episode, onEdit, onDelete }: EpisodeCardProps) {
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
             <span className="px-2 py-0.5 text-xs font-medium rounded bg-brand-primary/20 text-brand-primary">
-              EP {episode.number}
+              EP {episode.episodeNumber}
             </span>
-            <span className="text-xs text-white/40">{episode.duration}</span>
+            <span className="flex items-center gap-1 text-xs text-yellow-400">
+              <Star size={12} fill="currentColor" />
+              {episode.rating.toFixed(1)}
+            </span>
           </div>
           <h4 className="text-white font-semibold line-clamp-1">
-            {episode.name}
+            {episode.title}
           </h4>
           <p className="text-sm text-white/60 line-clamp-2 mt-1">
             {episode.description}
@@ -27,29 +35,35 @@ export function EpisodeCard({ episode, onEdit, onDelete }: EpisodeCardProps) {
         </div>
       </div>
 
-      <div className="flex gap-2 mt-auto pt-2">
-        <button
-          onClick={onEdit}
-          className="p-2 bg-brand-bg border border-brand-primary rounded
-                     hover:bg-brand-primary transition-all duration-300 group"
-          aria-label="Edit episode"
-        >
-          <Pencil
-            size={16}
-            className="text-brand-primary group-hover:text-black transition-colors"
-          />
-        </button>
-        <button
-          onClick={onDelete}
-          className="p-2 bg-brand-bg border border-red-500/50 rounded
-                     hover:bg-red-500 transition-all duration-300 group"
-          aria-label="Delete episode"
-        >
-          <Trash2
-            size={16}
-            className="text-red-400 group-hover:text-white transition-colors"
-          />
-        </button>
+      <div className="flex items-center justify-between">
+        <span className="text-xs text-white/40">
+          {formatDate(episode.releaseDate)}
+        </span>
+
+        <div className="flex gap-2">
+          <button
+            onClick={onEdit}
+            className="p-2 bg-brand-bg border border-brand-primary rounded
+                       hover:bg-brand-primary transition-all duration-300 group"
+            aria-label="Edit episode"
+          >
+            <Pencil
+              size={16}
+              className="text-brand-primary group-hover:text-black transition-colors"
+            />
+          </button>
+          <button
+            onClick={onDelete}
+            className="p-2 bg-brand-bg border border-red-500/50 rounded
+                       hover:bg-red-500 transition-all duration-300 group"
+            aria-label="Delete episode"
+          >
+            <Trash2
+              size={16}
+              className="text-red-400 group-hover:text-white transition-colors"
+            />
+          </button>
+        </div>
       </div>
     </div>
   );

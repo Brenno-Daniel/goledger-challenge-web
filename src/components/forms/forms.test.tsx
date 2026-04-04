@@ -95,14 +95,15 @@ describe('EpisodeForm', () => {
     expect(
       screen.getByPlaceholderText('Descrição do episódio')
     ).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('45:00')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('9.5')).toBeInTheDocument();
   });
 
   it('Should display labels correctly', () => {
     renderWithProvider(<EpisodeForm onSubmit={mockOnSubmit} />);
 
     expect(screen.getByText('Número do Episódio')).toBeInTheDocument();
-    expect(screen.getByText('Nome do Episódio')).toBeInTheDocument();
-    expect(screen.getByText('Duração')).toBeInTheDocument();
+    expect(screen.getByText('Nota (0-10)')).toBeInTheDocument();
+    expect(screen.getByText('Título')).toBeInTheDocument();
+    expect(screen.getByText('Data de Lançamento')).toBeInTheDocument();
   });
 });

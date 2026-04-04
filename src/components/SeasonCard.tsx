@@ -15,7 +15,14 @@ export function SeasonCard({ season, tvShowId }: SeasonCardProps) {
     >
       <div className="flex items-center justify-between">
         <div>
-          <h4 className="text-white font-medium">Temporada {season.number}</h4>
+          <div className="flex items-center gap-2">
+            <h4 className="text-white font-medium">
+              Temporada {season.number}
+            </h4>
+            {season.year && (
+              <span className="text-xs text-white/40">({season.year})</span>
+            )}
+          </div>
           <p className="text-sm text-white/60 mt-1 line-clamp-2">
             {season.description}
           </p>
