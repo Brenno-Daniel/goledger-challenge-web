@@ -53,7 +53,7 @@ export function TVShowForm({ onSubmit, defaultValues }: TVShowFormProps) {
         type="number"
         placeholder="Ex: 16"
         error={errors.recommendedAge?.message}
-        {...register('recommendedAge', { valueAsNumber: true })}
+        {...register('recommendedAge')}
       />
     </form>
   );
