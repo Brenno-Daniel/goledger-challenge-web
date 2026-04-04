@@ -7,3 +7,4 @@ export { AssetModal } from './AssetModal';
 export { DeleteConfirmationModal } from './DeleteConfirmationModal';
 export { ToastProvider, useToast } from './Toast';
 export { Skeleton, TVShowCardSkeleton, TVShowGridSkeleton } from './Skeleton';
+export { Logo } from './Logo';

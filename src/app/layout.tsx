@@ -4,8 +4,11 @@ import { ClientLayout } from '@/components/ClientLayout';
 import { Header } from '@/components/layout';
 
 export const metadata: Metadata = {
-  title: 'GoLedger Challenge',
-  description: 'Desafio GoLedger',
+  title: 'LedgerStream',
+  description: 'Gerencie suas séries favoritas',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
