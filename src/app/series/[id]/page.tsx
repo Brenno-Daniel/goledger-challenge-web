@@ -10,13 +10,19 @@ export default async function SeriesDetailPage({ params }: PageProps) {
   const { id } = await params;
   const decodedId = decodeURIComponent(id);
 
-  const show = await getTVShowByKey(decodedId);
+  let show;
+  let seasons: Awaited<ReturnType<typeof getSeasonsByTVShow>> = [];
+
+  try {
+    show = await getTVShowByKey(decodedId);
+    seasons = await getSeasonsByTVShow(decodedId);
+  } catch {
+    notFound();
+  }
 
   if (!show) {
     notFound();
   }
-
-  const seasons = await getSeasonsByTVShow(decodedId);
 
   return <SeriesDetailClient show={show} initialSeasons={seasons} />;
 }
