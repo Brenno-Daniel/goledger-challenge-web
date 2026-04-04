@@ -1,5 +1,9 @@
 import { SeasonDetailClient } from './SeasonDetailClient';
-import { mockTVShows, mockSeasons, mockEpisodes } from '@/constants/mockData';
+import {
+  getTVShowByKey,
+  getSeasonByKey,
+  getEpisodesBySeason,
+} from '@/services/tvShowService';
 
 interface PageProps {
   params: Promise<{ id: string; seasonId: string }>;
@@ -7,8 +11,11 @@ interface PageProps {
 
 export default async function SeasonDetailPage({ params }: PageProps) {
   const { id, seasonId } = await params;
-  const show = mockTVShows.find(s => s['@key'] === id);
-  const season = mockSeasons.find(s => s['@key'] === seasonId);
+  const decodedId = decodeURIComponent(id);
+  const decodedSeasonId = decodeURIComponent(seasonId);
+
+  const show = await getTVShowByKey(decodedId);
+  const season = await getSeasonByKey(decodedSeasonId);
 
   if (!show || !season) {
     return (
@@ -20,7 +27,7 @@ export default async function SeasonDetailPage({ params }: PageProps) {
     );
   }
 
-  const episodes = mockEpisodes.filter(ep => ep.season['@key'] === seasonId);
+  const episodes = await getEpisodesBySeason(decodedSeasonId);
 
   return <SeasonDetailClient show={show} season={season} episodes={episodes} />;
 }

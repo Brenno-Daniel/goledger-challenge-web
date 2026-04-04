@@ -25,7 +25,7 @@ export function SeasonDetailClient({
           </Link>
           <ChevronRight size={16} />
           <Link
-            href={`/series/${show['@key']}`}
+            href={`/series/${encodeURIComponent(show['@key'])}`}
             className="hover:text-brand-primary transition-colors"
           >
             {show.title}
