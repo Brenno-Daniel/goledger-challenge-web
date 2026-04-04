@@ -179,7 +179,6 @@ export function SeriesDetailClient({
               ? {
                   number: selectedSeason.number,
                   year: selectedSeason.year,
-                  description: selectedSeason.description,
                 }
               : undefined
           }

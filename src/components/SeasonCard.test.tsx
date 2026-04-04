@@ -9,7 +9,6 @@ describe('SeasonCard', () => {
     '@key': 'season-001-1',
     number: 1,
     year: 2008,
-    description: 'A primeira temporada acompanha Walter White e Jesse Pinkman.',
     tvShow: { '@key': 'tvshow-001' },
   };
 
@@ -25,15 +24,6 @@ describe('SeasonCard', () => {
 
     const year = screen.getByText('(2008)');
     expect(year).toBeInTheDocument();
-  });
-
-  it('Should render season description correctly when data is loaded', () => {
-    render(<SeasonCard season={mockSeason} tvShowId="tvshow-001" />);
-
-    const description = screen.getByText(
-      'A primeira temporada acompanha Walter White e Jesse Pinkman.'
-    );
-    expect(description).toBeInTheDocument();
   });
 
   it('Should render links to season episodes when component is rendered', () => {

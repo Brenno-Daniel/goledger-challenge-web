@@ -53,7 +53,6 @@ describe('Season Schema', () => {
     const validData = {
       number: 1,
       year: 2008,
-      description: 'Primeira temporada...',
     };
 
     const result = seasonSchema.safeParse(validData);
@@ -64,18 +63,6 @@ describe('Season Schema', () => {
     const invalidData = {
       number: 0,
       year: 2008,
-      description: 'Descrição...',
-    };
-
-    const result = seasonSchema.safeParse(invalidData);
-    expect(result.success).toBe(false);
-  });
-
-  it('Should fail validation when description is empty', () => {
-    const invalidData = {
-      number: 1,
-      year: 2008,
-      description: '',
     };
 
     const result = seasonSchema.safeParse(invalidData);

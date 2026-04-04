@@ -12,7 +12,6 @@ export interface TVShow extends BaseAsset {
 export interface Season extends BaseAsset {
   number: number;
   year: number;
-  description: string;
   tvShow: { '@key': string };
 }
 

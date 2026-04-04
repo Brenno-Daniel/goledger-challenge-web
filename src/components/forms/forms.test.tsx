@@ -65,16 +65,14 @@ describe('SeasonForm', () => {
     renderWithProvider(<SeasonForm onSubmit={mockOnSubmit} />);
 
     expect(screen.getByPlaceholderText('1')).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText('Descrição da temporada')
-    ).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('2024')).toBeInTheDocument();
   });
 
   it('Should display labels correctly', () => {
     renderWithProvider(<SeasonForm onSubmit={mockOnSubmit} />);
 
     expect(screen.getByText('Número da Temporada')).toBeInTheDocument();
-    expect(screen.getByText('Descrição')).toBeInTheDocument();
+    expect(screen.getByText('Ano')).toBeInTheDocument();
   });
 });
 

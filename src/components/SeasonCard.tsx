@@ -31,9 +31,6 @@ export function SeasonCard({
                 <span className="text-xs text-white/40">({season.year})</span>
               )}
             </div>
-            <p className="text-sm text-white/60 mt-1 line-clamp-2">
-              {season.description}
-            </p>
           </Link>
         </div>
         <div className="flex items-center gap-2">

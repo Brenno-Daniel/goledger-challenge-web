@@ -44,12 +44,25 @@ export function SeasonDetailClient({
     setIsDeleteModalOpen(true);
   };
 
+  const formatDateToRFC3339 = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toISOString();
+  };
+
   const handleSave = async (data: EpisodeFormData) => {
     setIsSaving(true);
 
     try {
+      const formattedData = {
+        ...data,
+        releaseDate: formatDateToRFC3339(data.releaseDate),
+      };
+
       if (selectedEpisode) {
-        const updated = await updateEpisode(selectedEpisode['@key'], data);
+        const updated = await updateEpisode(
+          selectedEpisode['@key'],
+          formattedData
+        );
         setEpisodes(prev =>
           prev.map(ep =>
             ep['@key'] === selectedEpisode['@key'] ? updated : ep
@@ -58,7 +71,7 @@ export function SeasonDetailClient({
         addToast(`Episódio atualizado com sucesso!`, 'success');
       } else {
         const created = await createEpisode({
-          ...data,
+          ...formattedData,
           season: { '@key': season['@key'] },
         });
         setEpisodes(prev => [...prev, created]);
@@ -122,7 +135,6 @@ export function SeasonDetailClient({
               <span className="text-lg text-white/60">({season.year})</span>
             )}
           </div>
-          <p className="text-white/70">{season.description}</p>
         </div>
 
         <section>

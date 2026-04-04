@@ -42,22 +42,6 @@ export function SeasonForm({ onSubmit, defaultValues }: SeasonFormProps) {
           {...register('year')}
         />
       </div>
-      <div className="flex flex-col gap-1">
-        <label className="text-sm text-brand-primary">Descrição</label>
-        <textarea
-          className="px-4 py-2 bg-brand-bg border border-white/20 rounded
-                     text-white placeholder:text-white/40
-                     focus:outline-none focus:border-brand-primary
-                     transition-colors duration-200 min-h-[100px] resize-y"
-          placeholder="Descrição da temporada"
-          {...register('description')}
-        />
-        {errors.description && (
-          <span className="text-xs text-red-500">
-            {errors.description.message}
-          </span>
-        )}
-      </div>
     </form>
   );
 }
