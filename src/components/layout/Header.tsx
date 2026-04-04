@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Logo } from '@/components/ui';
+import { Film, ListTodo } from 'lucide-react';
 
 export function Header() {
   return (
@@ -17,6 +18,23 @@ export function Header() {
               </span>
             </div>
           </Link>
+
+          <nav className="flex items-center gap-2 md:gap-4">
+            <Link
+              href="/"
+              className="flex items-center gap-2 px-3 py-2 text-sm text-white/60 hover:text-brand-primary transition-colors rounded-lg hover:bg-white/5"
+            >
+              <Film size={18} />
+              <span className="hidden sm:inline">Séries</span>
+            </Link>
+            <Link
+              href="/watchlist"
+              className="flex items-center gap-2 px-3 py-2 text-sm text-white/60 hover:text-brand-primary transition-colors rounded-lg hover:bg-white/5"
+            >
+              <ListTodo size={18} />
+              <span className="hidden sm:inline">Watchlists</span>
+            </Link>
+          </nav>
         </div>
       </div>
     </header>

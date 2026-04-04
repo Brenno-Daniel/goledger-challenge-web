@@ -16,7 +16,8 @@ export function SeasonForm({ onSubmit, defaultValues }: SeasonFormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<SeasonFormData>({
-    resolver: zodResolver(seasonSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(seasonSchema) as any,
     defaultValues,
   });
 
