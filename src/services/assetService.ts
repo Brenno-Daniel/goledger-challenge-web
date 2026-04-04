@@ -57,11 +57,22 @@ export async function createAsset<T>(
     ],
   };
 
-  const response = await api.post<InvokeResponse<T>>(
+  const response = await api.post<T[] | InvokeResponse<T>>(
     '/invoke/createAsset',
     payload
   );
-  return response.data.result;
+  const result = response.data;
+
+  if (Array.isArray(result)) {
+    return result[0];
+  }
+
+  if (result.result === undefined) {
+    return result as T;
+  }
+
+  const invokeResult = result.result;
+  return Array.isArray(invokeResult) ? invokeResult[0] : invokeResult;
 }
 
 export async function updateAsset<T>(
@@ -77,11 +88,22 @@ export async function updateAsset<T>(
     },
   };
 
-  const response = await api.put<InvokeResponse<T>>(
+  const response = await api.put<T[] | InvokeResponse<T>>(
     '/invoke/updateAsset',
     payload
   );
-  return response.data.result;
+  const result = response.data;
+
+  if (Array.isArray(result)) {
+    return result[0];
+  }
+
+  if (result.result === undefined) {
+    return result as T;
+  }
+
+  const invokeResult = result.result;
+  return Array.isArray(invokeResult) ? invokeResult[0] : invokeResult;
 }
 
 export async function deleteAsset(
