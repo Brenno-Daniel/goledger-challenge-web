@@ -14,7 +14,7 @@ function formatDate(dateString: string): string {
 
 export function EpisodeCard({ episode, onEdit, onDelete }: EpisodeCardProps) {
   return (
-    <div className="bg-brand-bg border border-white/10 rounded-lg p-4 flex flex-col gap-3 hover:border-brand-primary/50 transition-colors duration-300">
+    <div className="bg-brand-bg border border-white/10 rounded-lg p-4 flex flex-col gap-3 hover:border-brand-primary/50 transition-colors duration-300 group">
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
@@ -43,24 +43,24 @@ export function EpisodeCard({ episode, onEdit, onDelete }: EpisodeCardProps) {
         <div className="flex gap-2">
           <button
             onClick={onEdit}
-            className="p-2 bg-brand-bg border border-brand-primary rounded
-                       hover:bg-brand-primary transition-all duration-300 group"
+            className="p-1.5 bg-brand-bg border border-brand-primary rounded
+                       hover:bg-brand-primary transition-all duration-300"
             aria-label="Edit episode"
           >
             <Pencil
-              size={16}
-              className="text-brand-primary group-hover:text-black transition-colors"
+              size={14}
+              className="text-brand-primary hover:text-black transition-colors"
             />
           </button>
           <button
             onClick={onDelete}
-            className="p-2 bg-brand-bg border border-red-500/50 rounded
-                       hover:bg-red-500 transition-all duration-300 group"
+            className="p-1.5 bg-brand-bg border border-red-500/50 rounded
+                       hover:bg-red-500 transition-all duration-300"
             aria-label="Delete episode"
           >
             <Trash2
-              size={16}
-              className="text-red-400 group-hover:text-white transition-colors"
+              size={14}
+              className="text-red-400 hover:text-white transition-colors"
             />
           </button>
         </div>

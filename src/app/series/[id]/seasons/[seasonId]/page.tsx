@@ -29,5 +29,11 @@ export default async function SeasonDetailPage({ params }: PageProps) {
 
   const episodes = await getEpisodesBySeason(decodedSeasonId);
 
-  return <SeasonDetailClient show={show} season={season} episodes={episodes} />;
+  return (
+    <SeasonDetailClient
+      show={show}
+      season={season}
+      initialEpisodes={episodes}
+    />
+  );
 }

@@ -52,6 +52,7 @@ describe('Season Schema', () => {
   it('Should validate a valid Season', () => {
     const validData = {
       number: 1,
+      year: 2008,
       description: 'Primeira temporada...',
     };
 
@@ -62,6 +63,7 @@ describe('Season Schema', () => {
   it('Should fail validation when number is zero', () => {
     const invalidData = {
       number: 0,
+      year: 2008,
       description: 'Descrição...',
     };
 
@@ -72,6 +74,7 @@ describe('Season Schema', () => {
   it('Should fail validation when description is empty', () => {
     const invalidData = {
       number: 1,
+      year: 2008,
       description: '',
     };
 

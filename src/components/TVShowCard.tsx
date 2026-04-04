@@ -28,7 +28,7 @@ export function TVShowCard({ show, onEdit, onDelete }: TVShowCardProps) {
         </div>
       </Link>
 
-      <div className="flex justify-end mt-auto pt-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
+      <div className="flex justify-end mt-auto pt-2">
         <ActionButtons onEdit={onEdit} onDelete={onDelete} />
       </div>
     </div>

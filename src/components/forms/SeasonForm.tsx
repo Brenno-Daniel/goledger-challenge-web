@@ -26,20 +26,29 @@ export function SeasonForm({ onSubmit, defaultValues }: SeasonFormProps) {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-4"
     >
-      <Input
-        label="Número da Temporada"
-        type="number"
-        placeholder="1"
-        error={errors.number?.message}
-        {...register('number', { valueAsNumber: true })}
-      />
+      <div className="grid grid-cols-2 gap-4">
+        <Input
+          label="Número da Temporada"
+          type="number"
+          placeholder="1"
+          error={errors.number?.message}
+          {...register('number')}
+        />
+        <Input
+          label="Ano"
+          type="number"
+          placeholder="2024"
+          error={errors.year?.message}
+          {...register('year')}
+        />
+      </div>
       <div className="flex flex-col gap-1">
         <label className="text-sm text-brand-primary">Descrição</label>
         <textarea
           className="px-4 py-2 bg-brand-bg border border-white/20 rounded
                      text-white placeholder:text-white/40
                      focus:outline-none focus:border-brand-primary
-                     transition-colors duration-200 min-h-[80px] resize-y"
+                     transition-colors duration-200 min-h-[100px] resize-y"
           placeholder="Descrição da temporada"
           {...register('description')}
         />

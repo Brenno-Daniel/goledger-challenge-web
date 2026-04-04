@@ -15,26 +15,24 @@ export function ActionButtons({
     <div className={`flex gap-2 ${className}`}>
       <button
         onClick={onEdit}
-        className="p-2 bg-brand-bg border border-white/20 rounded
-                   hover:bg-brand-primary hover:border-brand-primary
-                   transition-all duration-300 group"
+        className="p-1.5 bg-brand-bg border border-brand-primary rounded
+                   hover:bg-brand-primary transition-all duration-300"
         aria-label="Edit"
       >
         <Pencil
-          size={16}
-          className="text-white transition-colors"
+          size={14}
+          className="text-brand-primary hover:text-black transition-colors"
         />
       </button>
       <button
         onClick={onDelete}
-        className="p-2 bg-brand-bg border border-white/20 rounded
-                   hover:bg-red-500 hover:border-red-500
-                   transition-all duration-300 group"
+        className="p-1.5 bg-brand-bg border border-red-500/50 rounded
+                   hover:bg-red-500 transition-all duration-300"
         aria-label="Delete"
       >
         <Trash2
-          size={16}
-          className="text-white group-hover:text-white transition-colors"
+          size={14}
+          className="text-red-400 hover:text-white transition-colors"
         />
       </button>
     </div>
