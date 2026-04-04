@@ -11,7 +11,10 @@ interface TVShowCardProps {
 export function TVShowCard({ show, onEdit, onDelete }: TVShowCardProps) {
   return (
     <div className="relative bg-brand-bg border border-white/10 rounded-lg p-4 flex flex-col gap-3 group hover:border-brand-primary/50 transition-colors duration-300">
-      <Link href={`/series/${show['@key']}`} className="block flex-1">
+      <Link
+        href={`/series/${encodeURIComponent(show['@key'])}`}
+        className="block flex-1"
+      >
         <div className="flex justify-between items-start gap-2">
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-white line-clamp-1">

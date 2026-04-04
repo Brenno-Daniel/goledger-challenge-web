@@ -10,7 +10,7 @@ interface SeasonCardProps {
 export function SeasonCard({ season, tvShowId }: SeasonCardProps) {
   return (
     <Link
-      href={`/series/${tvShowId}/seasons/${season['@key']}`}
+      href={`/series/${encodeURIComponent(tvShowId)}/seasons/${encodeURIComponent(season['@key'])}`}
       className="block bg-brand-bg border border-white/10 rounded-lg p-4 hover:border-brand-primary/50 transition-colors duration-300 group"
     >
       <div className="flex items-center justify-between">

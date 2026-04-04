@@ -3,66 +3,23 @@ import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui';
 import { SeasonCard } from '@/components/SeasonCard';
-import { mockTVShows } from '@/constants/mockData';
-import type { Season } from '@/types';
+import { getTVShowByKey, getSeasonsByTVShow } from '@/services/tvShowService';
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-const mockSeasons: Record<string, Season[]> = {
-  'tvshows:001': [
-    {
-      '@assetType': 'season',
-      '@key': 'season-001-1',
-      number: 1,
-      description:
-        'A primeira temporada acompanha Walter White e Jesse Pinkman.',
-      tvShow: { '@key': 'tvshows:001' },
-    },
-    {
-      '@assetType': 'season',
-      '@key': 'season-001-2',
-      number: 2,
-      description: 'Walter enfrenta as consequências de suas decisões.',
-      tvShow: { '@key': 'tvshows:001' },
-    },
-    {
-      '@assetType': 'season',
-      '@key': 'season-001-3',
-      number: 3,
-      description: 'A parceria com Gus Fring se torna mais complicada.',
-      tvShow: { '@key': 'tvshows:001' },
-    },
-  ],
-  'tvshows:002': [
-    {
-      '@assetType': 'season',
-      '@key': 'season-002-1',
-      number: 1,
-      description:
-        'O desaparecimento de Will Byers e os eventos sobrenaturais em Hawkins.',
-      tvShow: { '@key': 'tvshows:002' },
-    },
-    {
-      '@assetType': 'season',
-      '@key': 'season-002-2',
-      number: 2,
-      description: 'Os moradores enfrentam criaturas do Mundo Invertido.',
-      tvShow: { '@key': 'tvshows:002' },
-    },
-  ],
-};
-
 export default async function SeriesDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const show = mockTVShows.find(s => s['@key'] === id);
+  const decodedId = decodeURIComponent(id);
+
+  const show = await getTVShowByKey(decodedId);
 
   if (!show) {
     notFound();
   }
 
-  const seasons = mockSeasons[id] || [];
+  const seasons = await getSeasonsByTVShow(decodedId);
 
   return (
     <main className="min-h-screen p-4 md:p-6 lg:p-8">
@@ -99,7 +56,7 @@ export default async function SeriesDetailPage({ params }: PageProps) {
                 <SeasonCard
                   key={season['@key']}
                   season={season}
-                  tvShowId={id}
+                  tvShowId={decodedId}
                 />
               ))}
             </div>
