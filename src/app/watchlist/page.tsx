@@ -2,13 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { Plus } from 'lucide-react';
-import {
-  WatchlistCard,
-  SearchBar,
-  Button,
-  AssetModal,
-  DeleteConfirmationModal,
-} from '@/components';
+import { WatchlistCard, SearchBar, Button, AssetModal } from '@/components';
 import { WatchlistForm } from '@/components/forms';
 import { useDebounce } from '@/hooks';
 import { useToast } from '@/components/ui';
@@ -16,19 +10,19 @@ import {
   getWatchlists,
   createWatchlist,
   updateWatchlist,
-  deleteWatchlist,
 } from '@/services/watchlistService';
-import type { Watchlist } from '@/types';
+import { getTVShows } from '@/services/tvShowService';
+import type { Watchlist, TVShow } from '@/types';
 import type { WatchlistFormData } from '@/schemas';
 
 export default function WatchlistPage() {
   const { addToast } = useToast();
   const [search, setSearch] = useState('');
   const [watchlists, setWatchlists] = useState<Watchlist[]>([]);
+  const [tvShows, setTvShows] = useState<TVShow[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedWatchlist, setSelectedWatchlist] = useState<Watchlist | null>(
     null
   );
@@ -44,40 +38,34 @@ export default function WatchlistPage() {
   }, [watchlists, debouncedSearch]);
 
   useEffect(() => {
-    const fetchWatchlists = async () => {
+    const fetchData = async () => {
       try {
-        const data = await getWatchlists();
-        setWatchlists(data);
+        const [watchlistsData, tvShowsData] = await Promise.all([
+          getWatchlists(),
+          getTVShows(),
+        ]);
+        setWatchlists(watchlistsData);
+        setTvShows(tvShowsData);
       } catch {
-        addToast('Erro ao carregar watchlists', 'error');
+        addToast('Erro ao carregar dados', 'error');
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchWatchlists();
+    fetchData();
   }, [addToast]);
-
-  const handleEdit = (watchlist: Watchlist) => {
-    setSelectedWatchlist(watchlist);
-    setIsEditModalOpen(true);
-  };
-
-  const handleDelete = (watchlist: Watchlist) => {
-    setSelectedWatchlist(watchlist);
-    setIsDeleteModalOpen(true);
-  };
 
   const handleSave = async (data: WatchlistFormData) => {
     setIsSaving(true);
 
-    const { tvShows, ...rest } = data;
+    const { tvShows: selectedTvShows, ...rest } = data;
 
     try {
       if (selectedWatchlist) {
         const updated = await updateWatchlist(selectedWatchlist['@key'], {
           ...rest,
-          tvShows: tvShows ?? [],
+          tvShows: selectedTvShows ?? [],
         });
         setWatchlists(prev =>
           prev.map(list =>
@@ -88,7 +76,7 @@ export default function WatchlistPage() {
       } else {
         const created = await createWatchlist({
           ...rest,
-          tvShows: tvShows ?? [],
+          tvShows: selectedTvShows ?? [],
         });
         setWatchlists(prev => [...prev, created]);
         addToast(`${data.title} criado com sucesso!`, 'success');
@@ -98,27 +86,6 @@ export default function WatchlistPage() {
       setSelectedWatchlist(null);
     } catch {
       addToast('Erro ao salvar watchlist', 'error');
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  const handleConfirmDelete = async () => {
-    if (!selectedWatchlist) return;
-
-    setIsSaving(true);
-
-    try {
-      await deleteWatchlist(selectedWatchlist['@key']);
-      setWatchlists(prev =>
-        prev.filter(list => list['@key'] !== selectedWatchlist['@key'])
-      );
-      addToast(`${selectedWatchlist.title} removido com sucesso!`, 'success');
-
-      setIsDeleteModalOpen(false);
-      setSelectedWatchlist(null);
-    } catch {
-      addToast('Erro ao remover watchlist', 'error');
     } finally {
       setIsSaving(false);
     }
@@ -150,12 +117,7 @@ export default function WatchlistPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredWatchlists.map(watchlist => (
-            <WatchlistCard
-              key={watchlist['@key']}
-              watchlist={watchlist}
-              onEdit={() => handleEdit(watchlist)}
-              onDelete={() => handleDelete(watchlist)}
-            />
+            <WatchlistCard key={watchlist['@key']} watchlist={watchlist} />
           ))}
         </div>
 
@@ -194,27 +156,18 @@ export default function WatchlistPage() {
       >
         <WatchlistForm
           onSubmit={handleSave}
+          availableTVShows={tvShows}
           defaultValues={
             selectedWatchlist
               ? {
                   title: selectedWatchlist.title,
                   description: selectedWatchlist.description,
+                  tvShows: selectedWatchlist.tvShows || [],
                 }
               : undefined
           }
         />
       </AssetModal>
-
-      <DeleteConfirmationModal
-        isOpen={isDeleteModalOpen}
-        onClose={() => {
-          setIsDeleteModalOpen(false);
-          setSelectedWatchlist(null);
-        }}
-        onConfirm={handleConfirmDelete}
-        itemName={selectedWatchlist?.title}
-        isLoading={isSaving}
-      />
     </main>
   );
 }

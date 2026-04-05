@@ -27,7 +27,7 @@ export interface Episode extends BaseAsset {
 export interface Watchlist extends BaseAsset {
   title: string;
   description: string;
-  tvShows: Array<{ '@key': string }>;
+  tvShows: Array<{ '@assetType': string; '@key': string }>;
 }
 
 export interface AssetResponse<T> {

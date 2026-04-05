@@ -43,9 +43,9 @@ export function Modal({
         onClick={onClose}
       />
       <div
-        className={`relative bg-brand-bg border border-white/10 rounded-lg w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-xl ${className}`}
+        className={`relative bg-brand-bg border border-white/10 rounded-lg w-full max-w-lg max-h-[90vh] flex flex-col shadow-xl ${className}`}
       >
-        <div className="flex items-center justify-between p-4 border-b border-white/10">
+        <div className="flex items-center justify-between p-4 border-b border-white/10 shrink-0">
           <h2 className="text-lg font-semibold text-white">{title}</h2>
           <button
             onClick={onClose}
@@ -54,7 +54,7 @@ export function Modal({
             <X size={20} />
           </button>
         </div>
-        <div className="p-4">{children}</div>
+        <div className="p-4 overflow-y-auto">{children}</div>
       </div>
     </div>
   );
