@@ -91,6 +91,17 @@ src/
 └── utils/       # Funções utilitárias
 ```
 
+## ✅ Pré-requisitos
+
+- **Node.js** 18.x ou superior
+- **pnpm** 8.x ou superior
+
+Para instalar o pnpm globalmente:
+
+```bash
+npm install -g pnpm
+```
+
 ## 🚀 Como Executar
 
 ```bash
