@@ -26,11 +26,11 @@ describe('SeasonCard', () => {
     expect(year).toBeInTheDocument();
   });
 
-  it('Should render links to season episodes when component is rendered', () => {
+  it('Should render link to season detail when component is rendered', () => {
     render(<SeasonCard season={mockSeason} tvShowId="tvshow-001" />);
 
     const links = screen.getAllByRole('link');
-    expect(links.length).toBe(2);
+    expect(links.length).toBe(1);
     expect(links[0]).toHaveAttribute(
       'href',
       '/series/tvshow-001/seasons/season-001-1'
