@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'motion/react';
 import { Pencil, Trash2, Star } from 'lucide-react';
 import type { Episode } from '@/types';
 
@@ -14,7 +17,11 @@ function formatDate(dateString: string): string {
 
 export function EpisodeCard({ episode, onEdit, onDelete }: EpisodeCardProps) {
   return (
-    <div className="bg-brand-bg border border-white/10 rounded-lg p-4 flex flex-col gap-3 hover:border-brand-primary/50 transition-colors duration-300 group">
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className="bg-brand-bg border border-white/10 rounded-lg p-4 flex flex-col gap-3 hover:border-brand-primary/50 transition-colors duration-300 group"
+    >
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
@@ -41,7 +48,9 @@ export function EpisodeCard({ episode, onEdit, onDelete }: EpisodeCardProps) {
         </span>
 
         <div className="flex gap-2">
-          <button
+          <motion.button
+            whileHover={{ y: -2 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             onClick={onEdit}
             className="p-1.5 bg-brand-bg border border-brand-primary rounded
                        hover:bg-brand-primary transition-all duration-300"
@@ -51,8 +60,10 @@ export function EpisodeCard({ episode, onEdit, onDelete }: EpisodeCardProps) {
               size={14}
               className="text-brand-primary hover:text-black transition-colors"
             />
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileHover={{ y: -2 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             onClick={onDelete}
             className="p-1.5 bg-brand-bg border border-red-500/50 rounded
                        hover:bg-red-500 transition-all duration-300"
@@ -62,9 +73,9 @@ export function EpisodeCard({ episode, onEdit, onDelete }: EpisodeCardProps) {
               size={14}
               className="text-red-400 hover:text-white transition-colors"
             />
-          </button>
+          </motion.button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'motion/react';
 import { ChevronRight, Pencil, Trash2 } from 'lucide-react';
 import type { Season } from '@/types';
 
@@ -16,7 +19,11 @@ export function SeasonCard({
   onDelete,
 }: SeasonCardProps) {
   return (
-    <div className="bg-brand-bg border border-white/10 rounded-lg p-4 hover:border-brand-primary/50 transition-colors duration-300">
+    <motion.div
+      whileHover={{ x: 4 }}
+      transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+      className="bg-brand-bg border border-white/10 rounded-lg p-4 hover:border-brand-primary/50 transition-colors duration-300 cursor-pointer"
+    >
       <div className="flex items-center justify-between">
         <div className="flex-1">
           <Link
@@ -35,39 +42,39 @@ export function SeasonCard({
         </div>
         <div className="flex items-center gap-2">
           <div className="flex gap-2">
-            <button
+            <motion.button
+              whileHover={{ y: -2 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 25 }}
               onClick={onEdit}
               className="p-1.5 bg-brand-bg border border-brand-primary rounded
-                         hover:bg-brand-primary transition-all duration-300"
+                         hover:bg-brand-primary transition-all duration-150"
               aria-label="Edit season"
             >
               <Pencil
                 size={14}
                 className="text-brand-primary hover:text-black transition-colors"
               />
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileHover={{ y: -2 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 25 }}
               onClick={onDelete}
               className="p-1.5 bg-brand-bg border border-red-500/50 rounded
-                         hover:bg-red-500 transition-all duration-300"
+                         hover:bg-red-500 transition-all duration-150"
               aria-label="Delete season"
             >
               <Trash2
                 size={14}
                 className="text-red-400 hover:text-white transition-colors"
               />
-            </button>
+            </motion.button>
           </div>
-          <Link
-            href={`/series/${encodeURIComponent(tvShowId)}/seasons/${encodeURIComponent(season['@key'])}`}
-          >
-            <ChevronRight
-              size={20}
-              className="text-white/40 hover:text-brand-primary transition-colors"
-            />
-          </Link>
+          <ChevronRight
+            size={20}
+            className="text-white/40 hover:text-brand-primary transition-colors"
+          />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

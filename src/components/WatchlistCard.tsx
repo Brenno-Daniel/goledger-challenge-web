@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'motion/react';
 import { Film } from 'lucide-react';
 import type { Watchlist } from '@/types';
 
@@ -10,7 +13,11 @@ export function WatchlistCard({ watchlist }: WatchlistCardProps) {
   const itemCount = watchlist.tvShows?.length || 0;
 
   return (
-    <div className="bg-brand-bg border border-white/10 rounded-lg p-4 hover:border-brand-primary/50 transition-colors duration-300">
+    <motion.div
+      whileHover={{ y: -4 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className="bg-brand-bg border border-white/10 rounded-lg p-4 hover:border-brand-primary/50 transition-colors duration-300"
+    >
       <Link
         href={`/watchlist/${encodeURIComponent(watchlist['@key'])}`}
         className="block"
@@ -28,6 +35,6 @@ export function WatchlistCard({ watchlist }: WatchlistCardProps) {
           </span>
         </div>
       </Link>
-    </div>
+    </motion.div>
   );
 }

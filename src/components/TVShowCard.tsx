@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'motion/react';
 import { TVShow } from '@/types';
 import { Badge, ActionButtons } from '@/components/ui';
 
@@ -10,7 +13,11 @@ interface TVShowCardProps {
 
 export function TVShowCard({ show, onEdit, onDelete }: TVShowCardProps) {
   return (
-    <div className="relative bg-brand-bg border border-white/10 rounded-lg p-4 flex flex-col gap-3 group hover:border-brand-primary/50 transition-colors duration-300">
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className="relative bg-brand-bg border border-white/10 rounded-lg p-4 flex flex-col gap-3 group hover:border-brand-primary/50 transition-colors duration-300"
+    >
       <Link
         href={`/series/${encodeURIComponent(show['@key'])}`}
         className="block flex-1"
@@ -31,6 +38,6 @@ export function TVShowCard({ show, onEdit, onDelete }: TVShowCardProps) {
       <div className="flex justify-end mt-auto pt-2">
         <ActionButtons onEdit={onEdit} onDelete={onDelete} />
       </div>
-    </div>
+    </motion.div>
   );
 }

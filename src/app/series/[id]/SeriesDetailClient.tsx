@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { motion } from 'motion/react';
 import {
   Badge,
   Button,
@@ -102,13 +103,18 @@ export function SeriesDetailClient({
   return (
     <main className="min-h-screen p-4 md:p-6 lg:p-8">
       <div className="max-w-5xl mx-auto">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-brand-primary hover:text-white transition-colors mb-6"
+        <motion.div
+          whileHover={{ x: -4 }}
+          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
         >
-          <ArrowLeft size={20} />
-          <span>Voltar</span>
-        </Link>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-brand-primary hover:text-white transition-colors mb-6"
+          >
+            <ArrowLeft size={20} />
+            <span>Voltar</span>
+          </Link>
+        </motion.div>
 
         <div className="bg-brand-bg border border-white/10 rounded-xl p-6 mb-8">
           <div className="flex flex-col md:flex-row md:items-start gap-4">
