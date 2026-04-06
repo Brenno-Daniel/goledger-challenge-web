@@ -16,7 +16,8 @@ export function TVShowForm({ onSubmit, defaultValues }: TVShowFormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<TVShowFormData>({
-    resolver: zodResolver(tvShowSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(tvShowSchema) as any,
     defaultValues,
   });
 
